@@ -10,11 +10,10 @@ import readline from 'readline';
 dotenv.config();
 
 const configuration = new Configuration({ 
-  apiKey: "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",
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 const openai = new OpenAIApi(configuration);
-
 
 const app = express();
 app.use(cors());
