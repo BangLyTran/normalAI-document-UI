@@ -19,7 +19,6 @@
     "express-session": "^1.17.3",
     "mongodb": "^5.7.0",
     "nodemon": "^2.0.20",
-    "redis": "^4.6.7",
     "vite": "^4.1.4"
   },
   "devDependencies": {
