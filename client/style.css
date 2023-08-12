@@ -1,5 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@100;300;400;500;700;800;900&display=swap");
 
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 100;
+  height: 100vh; /* Full viewport height */
+}
+
+.chat-wrapper {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.editor {
+  width: 50%; /* Take up half the space */
+  overflow-x: hidden; /* Prevent horizontal overflow */
+  overflow-y: auto; /* Scroll if content overflows vertically */
+}
+
+
 * {
   margin: 0;
   padding: 0;
@@ -23,11 +44,11 @@ body {
   justify-content: space-between;
 }
 
-#chat_container {
-  flex: 1;
-  width: 100%;
-  height: 100%;
-  overflow-y: scroll;
+.chatbot {
+  flex-grow: 1; /* Take up all available space */
+  overflow-x: hidden; /* Prevent horizontal overflow */
+  overflow-y: auto; /* Scroll if content overflows vertically */
+  width: 100%; /* Take up half the space */
 
   display: flex;
   flex-direction: column;
@@ -157,3 +178,78 @@ form img {
   height: 30px;
 }
 
+/* Tiptap editor styles */
+.ProseMirror {
+  > * + * {
+    margin-top: 0.75em;
+  }
+
+  ul,
+  ol {
+    padding: 0 1rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.1;
+  }
+
+  code {
+    background-color: rgba(#616161, 0.1);
+    color: #616161;
+  }
+
+  pre {
+    background: #0D0D0D;
+    color: #FFF;
+    font-family: 'JetBrainsMono', monospace;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+
+    code {
+      color: inherit;
+      padding: 0;
+      background: none;
+      font-size: 0.8rem;
+    }
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  blockquote {
+    padding-left: 1rem;
+    border-left: 2px solid rgba(#0D0D0D, 0.1);
+  }
+
+  hr {
+    border: none;
+    border-top: 2px solid rgba(#0D0D0D, 0.1);
+    margin: 2rem 0;
+  }
+}
+
+
+
+.toolbar button {
+  padding: 10px;
+  margin: 5px;
+  border: none;
+  background: #f0f0f0;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.toolbar button.is-active {
+  background: #a5893d; /* Active button color */
+}
+
+.toolbar button:hover {
+  background: #d0d0d0; /* Hover effect */
+}
