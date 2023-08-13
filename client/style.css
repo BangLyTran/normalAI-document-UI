@@ -15,10 +15,17 @@
 }
 
 .editor {
-  width: 50%; /* Take up half the space */
-  overflow-x: hidden; /* Prevent horizontal overflow */
-  overflow-y: auto; /* Scroll if content overflows vertically */
+  width: 100%;
+  height: 100%; /* Set the height of the editable zone */
+  max-height: 100%; /* Set maximum height */
+  overflow-x: hidden;
+  overflow-y: auto; /* Allow vertical scrolling */
+  margin-top: 15px;
+  margin-bottom: 15px;
+  color: #000000;
+  border-color: #000000;
 }
+
 
 
 * {
@@ -178,8 +185,22 @@ form img {
   height: 30px;
 }
 
+/* remove outline */
+.ProseMirror:focus {
+  outline: none;
+}
+
+/* set height and overflow */
+.ProseMirror {
+  min-height: 750px;
+  max-height: 750px;
+  
+  overflow: scroll;
+}
+
 /* Tiptap editor styles */
 .ProseMirror {
+
   > * + * {
     margin-top: 0.75em;
   }
@@ -252,4 +273,65 @@ form img {
 
 .toolbar button:hover {
   background: #d0d0d0; /* Hover effect */
+}
+
+.toolbar-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: #f0f0f0; /* Background color for the toolbar container */
+}
+
+.page {
+  width: 612px; /* 8.5 inches */
+  height: 792px; /* 11 inches */
+  margin: auto; /* Center the page */
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #000; /* Border to visualize the page */
+  overflow: hidden; /* Hide overflow content */
+  position: relative; /* Relative positioning for child elements */
+  transition: transform 0.3s; /* Transition for zoom effect */
+}
+
+.document {
+  width: 100%; /* Adjust to fit the container */
+  overflow: auto; /* Allow scrolling if multiple pages are present */
+}
+
+/* You can add a class for a new page button if needed */
+.new-page-button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  background: #a5893d;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+}
+
+.page.selected {
+  border: 2px solid blue; /* or any other styling you prefer*/
+}
+
+.page-holder {
+  width: 100%; /* Adjust to fit the container */
+  padding: 40px; /* Margin for the page class */
+  overflow: hidden; /* Allow scrolling if content overflows */
+  position: relative; /* Relative positioning for child elements */
+}
+
+/* Add this class for zoom effect */
+.page.zoomed {
+  transform: scale(1.1); /* Example of zoom effect */
+}
+
+.new-page {
+  display: none; /* Hide new pages by default */
+}
+
+.page .editor .element {
+  max-height: calc(100% - 30px); /* Adjust as needed */
+  overflow-y: no; /* Enable scrolling if content exceeds max-height */
 }

@@ -19,11 +19,21 @@
         </form>
       </div>
       
-      <div class="editor" id="editor">
-        <!-- TipTap editor will be mounted here -->
-        <script type="module" src="editor2.js"></script>
-        <div class="element"></div>
+      <div class="document" id="document">
+        <div class="toolbar-container" id="toolbar-container">
+          <!-- Toolbar will be mounted here -->
+        </div>
+        <div class="page-holder"> <!-- Add this line -->
+          <div class="page">
+            <div class="editor" id="editor">
+              <!-- TipTap editor will be mounted here -->
+              <script type="module" src="editor2.js"></script>
+              <div class="element"></div>
+            </div>
+          </div>
+        </div> <!-- Add this line -->
       </div>
+      
     </div>
     <script type="module" src="chatbot.js"></script>
     <script type="module" src="editor2.js"></script> <!-- Include the editor script -->
