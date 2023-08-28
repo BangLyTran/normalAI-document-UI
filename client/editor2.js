@@ -3,7 +3,7 @@ import StarterKit from '@tiptap/starter-kit';
 import Highlight from '@tiptap/extension-highlight';
 import TextAlign from '@tiptap/extension-text-align';
 import { Node } from '@tiptap/core';
-import TextStyle from '@tiptap/extension-text-style'
+import TextStyle from  '@tiptap/extension-text-style'
 import { Mark } from '@tiptap/core';
 const MenuBar = editor => {
   if (!editor) {
