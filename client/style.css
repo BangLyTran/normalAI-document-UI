@@ -19,7 +19,7 @@
   height: 100%; /* Set the height of the editable zone */
   max-height: 100%; /* Set maximum height */
   overflow-x: hidden;
-  overflow-y: auto; /* Allow vertical scrolling */
+  overflow-y: no; /* hidden vertical scrolling */
   margin-top: 15px;
   margin-bottom: 15px;
   color: #000000;
@@ -195,7 +195,7 @@ form img {
   min-height: 750px;
   max-height: 750px;
   
-  overflow: scroll;
+  overflow: hidden;
 }
 
 /* Tiptap editor styles */
@@ -335,3 +335,16 @@ form img {
   max-height: calc(100% - 30px); /* Adjust as needed */
   overflow-y: no; /* Enable scrolling if content exceeds max-height */
 }
+
+/* Font change box*/
+select {
+  padding: 5px;
+  font-family: "Alegreya Sans", sans-serif;
+  border-radius: 4px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.font-Arial { font-family: Arial; }
+.font-Georgia { font-family: Georgia; }
+.font-Helvetica { font-family: Helvetica; }
+.font-Times-New-Roman { font-family: 'Times New Roman'; }

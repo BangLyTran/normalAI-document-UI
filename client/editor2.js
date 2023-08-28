@@ -2,6 +2,9 @@ import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import Highlight from '@tiptap/extension-highlight';
 import TextAlign from '@tiptap/extension-text-align';
+import { Node } from '@tiptap/core';
+import TextStyle from '@tiptap/extension-text-style'
+import { Mark } from '@tiptap/core';
 const MenuBar = editor => {
   if (!editor) {
     return null;
@@ -9,28 +12,30 @@ const MenuBar = editor => {
 
 let isCreatingPage = false; // Add this flag at the beginning of the file
 
+
 // Function to initialize a new editor
 const initializeEditor = (element) => {
   const editorInstance = new Editor({
     element: element,
     extensions: [StarterKit, TextAlign.configure({
       types: ['heading', 'paragraph']
-    }), Highlight],
+    }), Highlight, Font],
     content: '<p>Your resume content here...</p>'
   });
 
   // Add event listener to check content height
   editorInstance.on('transaction', () => {
-    const contentHeight = element.scrollHeight;
+    const contentHeight = element.clientHeight;
+    const contentScrollHeight = element.scrollHeight;
     const pageHeight = element.closest('.page').offsetHeight - 30;
   
-    if (contentHeight >= pageHeight && !isCreatingPage) { // Check the flag here
-      isCreatingPage = true; // Set the flag to true
+    if (contentScrollHeight > contentHeight && contentHeight >= pageHeight && !isCreatingPage) {
+      isCreatingPage = true;
       createNewPage();
       const newEditorElement = document.querySelector('.page:last-child .element');
       const newEditor = initializeEditor(newEditorElement);
       newEditor.focus();
-      isCreatingPage = false; // Reset the flag to false
+      isCreatingPage = false;
     }
   });
 
@@ -41,10 +46,9 @@ const initializeEditor = (element) => {
 // Function to create a new page
 const createNewPage = () => {
   const newPage = document.createElement('div');
-  newPage.className = 'page new-page'; // Add the new-page class
   newPage.className = 'page';
   newPage.innerHTML = '<div class="editor"><div class="element"></div></div>';
-  newPage.onclick = selectPage; // Add click event to select the page
+  newPage.onclick = selectPage;
 
   // Append the new page to the "document" div
   const documentDiv = document.getElementById('document');
@@ -81,6 +85,22 @@ const deleteSelectedPage = () => {
   const toolbar = document.createElement('div');
   toolbar.className = 'toolbar';
 
+  // Create Font Selector
+  const fontSelector = document.createElement('select');
+  Font.options.fonts.forEach(font => {
+    const option = document.createElement('option');
+    option.innerText = font;
+    option.value = font;
+    fontSelector.appendChild(option);
+  });  
+
+  fontSelector.onchange = (e) => {
+    console.log('Selected font:', e.target.value); // Debug statement
+    editor.chain().focus().setFontFamily(e.target.value).run(); // use the corrected setFontFamily command
+  };
+
+  toolbar.appendChild(fontSelector); // Add font selector to the toolbar
+
   const buttons = [
     { label: 'h1', action: () => editor.chain().focus().toggleHeading({ level: 1 }).run() },
     { label: 'h2', action: () => editor.chain().focus().toggleHeading({ level: 2 }).run() },
@@ -108,11 +128,49 @@ const deleteSelectedPage = () => {
   return toolbar;
 };
 
+//Function to select Font
+const Font = Mark.create({
+  name: 'font',
+
+  defaultOptions: {
+    types: ['heading', 'paragraph'],
+    fonts: ['Times New Roman', 'Arial', 'Georgia', 'Helvetica', ],
+  },
+
+  addGlobalAttributes() {
+    return [
+      {
+        types: this.options.types,
+        attributes: {
+          fontFamily: {
+            default: 'Arial',
+            renderHTML: attributes => {
+              return { style: `font-family: ${attributes.fontFamily}` };
+            },
+          },
+        },
+      },
+    ];
+  },
+
+  addCommands() {
+    return {
+      setFontFamily: font => ({ commands }) => {
+        console.log('Setting font family to:', font); // Debug statement
+        commands.setMark('font', { fontFamily: font }); // use 'font', not 'textStyle', and set fontFamily
+      },
+    };
+  }
+});
+
 const editor = new Editor({
   element: document.querySelector('.element'),
   extensions: [StarterKit, TextAlign.configure({
     types: ['heading', 'paragraph']
-  }), Highlight],
+  }), Highlight,
+  TextStyle,
+  Font,
+  ],
   content: '<p>Your resume content here...</p>'
 });
 
@@ -130,6 +188,7 @@ const selectPage = (event) => {
 
 // Render the MenuBar
 document.querySelector('#toolbar-container').prepend(MenuBar(editor));
+
 
 // Initialize the first editor
 const firstEditorElement = document.querySelector('.element');
