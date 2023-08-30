@@ -197,8 +197,7 @@ initializeEditor(firstEditorElement);
 // Add click event to the existing page
 document.querySelector('.page').onclick = selectPage;
 
-// Add keydown event listener to the editor element
-element.addEventListener('keydown', handleKeyDown);
+
 
 // Function to handle zooming
 const handleZoom = (event) => {
