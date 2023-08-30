@@ -59,6 +59,7 @@ function chatStripe(isAi, value, uniqueId) {
 }
 
 const handleSubmit = async (e) => {
+  console.log('handleSubmit called');  // Debugging line
   e.preventDefault();
 
   const formData = new FormData(form);
@@ -112,6 +113,7 @@ const handleSubmit = async (e) => {
 }
 
 form.addEventListener('submit', handleSubmit);
+
 
 form.addEventListener('keydown', (e) => {
   if (e.key === 'Enter' && !e.shiftKey) {
