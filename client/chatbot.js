@@ -2,6 +2,10 @@ import bot from './assets/bot.svg'
 import user from './assets/user.svg'
 
 const form = document.querySelector('form');
+
+// Log the form element to the console for debugging
+console.log(form);  // Debug to see if form is null or an actual element
+
 const chatContainer = document.querySelector('#chat_container')
 
 let loadInterval;
